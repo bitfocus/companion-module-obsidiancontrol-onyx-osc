@@ -1,9 +1,12 @@
 # companion-module-obsidian-onyx-osc
-See [HELP.md](./HELP.md) and [LICENSE](./LICENSE)
+See [HELP.md](./companion/HELP.md) and [LICENSE](./LICENSE)
 
 # Features
 * Main Playback Levels + Buttons (incl. feedback and cuelist names)
-* TODO: Button Playbacks (Onyx provides no feedback for those)
-* TODO: Generic Buttons (SELECT, GO, ...)
+* Button Playbacks (Onyx provides no feedback for those)
+* Generic Buttons (SELECT, GO, ...)
+* Parameter Group / Effect Group selection (incl. feedback)
 * TODO: Encoders
 * TODO: Master Faders
+* Bank selection incl. feedback
+* Device Space ID selection incl. feedback

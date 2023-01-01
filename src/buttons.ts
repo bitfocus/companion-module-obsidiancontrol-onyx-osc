@@ -1,12 +1,19 @@
-import {combineRgb, CompanionPresetDefinitions, DropdownChoice} from "@companion-module/base";
+import {
+    combineRgb,
+    CompanionPresetDefinitions,
+    CompanionVariableDefinition,
+    DropdownChoice
+} from "@companion-module/base";
 
 export interface ButtonDefinition {
     baseAddress: string
     hasLedFeedback: boolean
+    hasText?: boolean
 }
 
 export class Buttons {
     private buttons : { [buttonId : string]: ButtonDefinition }
+    private addressToVariable: { [address: string]: string } = {}
 
     constructor() {
         this.buttons = {
@@ -48,22 +55,47 @@ export class Buttons {
             },
             "PLAYBACK BANK 1": {
                 baseAddress: "/Mx/button/4421",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PLAYBACK BANK 2": {
                 baseAddress: "/Mx/button/4422",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PLAYBACK BANK 3": {
                 baseAddress: "/Mx/button/4423",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PLAYBACK BANK 4": {
                 baseAddress: "/Mx/button/4424",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PLAYBACK BANK 5": {
                 baseAddress: "/Mx/button/4425",
+                hasLedFeedback: false,
+                hasText: true
+            },
+            "Bank Scroll Up": {
+                baseAddress: "/Mx/scroll/4110/up",
+                hasLedFeedback: false
+            },
+            "Bank Scroll Down": {
+                baseAddress: "/Mx/scroll/4110/down",
+                hasLedFeedback: false
+            },
+            "Bank Page Scroll Up": {
+                baseAddress: "/Mx/scroll/4111/up",
+                hasLedFeedback: false
+            },
+            "Bank Page Scroll Down": {
+                baseAddress: "/Mx/scroll/4111/down",
+                hasLedFeedback: false
+            },
+            "Fader Swap": {
+                baseAddress: "/Mx/button/4600",
                 hasLedFeedback: false
             },
             "VIEW 1": {
@@ -328,23 +360,28 @@ export class Buttons {
             },
             "PF GROUP 1": {
                 baseAddress: "/Mx/button/5701",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PF GROUP 2": {
                 baseAddress: "/Mx/button/5702",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PF GROUP 3": {
                 baseAddress: "/Mx/button/5703",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PF GROUP 4": {
                 baseAddress: "/Mx/button/5704",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PF GROUP 5": {
                 baseAddress: "/Mx/button/5705",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "PF GROUP Scroll Up": {
                 baseAddress: "/Mx/scroll/5706/up",
@@ -380,43 +417,53 @@ export class Buttons {
             },
             "BASE CHANNEL GROUP 1": {
                 baseAddress: "/Mx/button/6101",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "BASE CHANNEL GROUP 2": {
                 baseAddress: "/Mx/button/6102",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "BASE CHANNEL GROUP 3": {
                 baseAddress: "/Mx/button/6103",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "BASE CHANNEL GROUP 4": {
                 baseAddress: "/Mx/button/6104",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "BASE CHANNEL GROUP 5": {
                 baseAddress: "/Mx/button/6105",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "EFFECT CHANNEL GROUP 1": {
                 baseAddress: "/Mx/button/6201",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "EFFECT CHANNEL GROUP 2": {
                 baseAddress: "/Mx/button/6202",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "EFFECT CHANNEL GROUP 3": {
                 baseAddress: "/Mx/button/6203",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "EFFECT CHANNEL GROUP 4": {
                 baseAddress: "/Mx/button/6204",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "EFFECT CHANNEL GROUP 5": {
                 baseAddress: "/Mx/button/6205",
-                hasLedFeedback: false
+                hasLedFeedback: false,
+                hasText: true
             },
             "BASE CHANNEL 1": {
                 baseAddress: "/Mx/button/6111",
@@ -483,6 +530,15 @@ export class Buttons {
                 hasLedFeedback: false
             }
         }
+
+        for (const buttonId in this.buttons) {
+            var btn = this.buttons[buttonId]
+
+            if (btn.hasText) {
+                this.addressToVariable[btn.baseAddress + "/text"] = this.sanitizeVariableName(buttonId)
+            }
+        }
+
     }
 
     public getButtonActionChoices() : DropdownChoice[] {
@@ -502,7 +558,7 @@ export class Buttons {
         var choices : DropdownChoice[] = []
 
         for (const buttonId in this.buttons) {
-            if (this.buttons[buttonId].hasLedFeedback) {
+            if (this.buttons[buttonId].hasLedFeedback || this.buttons[buttonId].hasText) {
                 choices.push({
                     id: buttonId,
                     label: buttonId
@@ -518,14 +574,22 @@ export class Buttons {
     }
 
     public getPresetDefinitions() : CompanionPresetDefinitions {
-        return {
-            'bla': {
-                name: "SELECT",
+        var presets : CompanionPresetDefinitions = {}
+
+        for (const buttonId in this.buttons) {
+            var btn = this.buttons[buttonId]
+            let text = buttonId
+            if (btn.hasText) {
+                text = "$(onyx-osc:" + this.sanitizeVariableName(buttonId) + ")"
+            }
+
+            presets[buttonId] = {
+                name: buttonId,
                 category: "Generic Buttons",
                 type: "button",
                 style: {
-                    text: "SELECT",
-                    size: "auto",
+                    text: text,
+                    size: "14",
                     bgcolor: combineRgb(0,0,0),
                     color: combineRgb(255,255,255)
                 },
@@ -535,7 +599,7 @@ export class Buttons {
                             {
                                 actionId: "generic_button",
                                 options: {
-                                    button: "SELECT",
+                                    button: buttonId,
                                     action: "press"
                                 }
                             }
@@ -544,26 +608,62 @@ export class Buttons {
                             {
                                 actionId: "generic_button",
                                 options: {
-                                    button: "SELECT",
+                                    button: buttonId,
                                     action: "release"
                                 }
                             }
                         ]
                     }
                 ],
-                feedbacks: [
+                feedbacks: []
+            }
+
+            if (btn.hasLedFeedback || btn.hasText) {
+                // @ts-ignore
+                presets[buttonId].feedbacks.push(
                     {
                         feedbackId: "generic_button_led",
                         options: {
-                            button: "SELECT"
+                            button: buttonId
                         },
                         style: {
                             bgcolor: combineRgb(255, 0, 0),
                             color: combineRgb(0, 0, 0),
                         }
                     }
-                ]
+                )
             }
         }
+
+        return presets
+    }
+
+    public getVariableDefinitions() : CompanionVariableDefinition[] {
+        var vars : CompanionVariableDefinition[] = []
+
+        for (const buttonId in this.buttons) {
+            var btn = this.buttons[buttonId]
+
+            if (btn.hasText) {
+                vars.push({
+                    variableId: this.sanitizeVariableName(buttonId),
+                    name: buttonId + " Name"
+                })
+            }
+        }
+
+        return vars
+    }
+
+    public getVariableForAddress(address: string): string {
+        return this.addressToVariable[address]
+    }
+
+    public getById(buttonId: string): ButtonDefinition {
+        return this.buttons[buttonId]
+    }
+
+    private sanitizeVariableName(name: string): string {
+        return name.replaceAll(" ", "_").toLowerCase()
     }
 }

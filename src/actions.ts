@@ -112,7 +112,50 @@ export function getActions(instance: OnyxOscInstance): CompanionActionDefinition
                     instance.send(baseAddress, [{ type: 'i', value: 0 }])
                 }
             }
-        }
+        },
+        playback_page_button: {
+            name: 'Playback Page Button',
+            options: [
+                {
+                    id: 'pagenum',
+                    type: 'number',
+                    label: 'Page Number',
+                    default: 1,
+                    min: 1,
+                    max: 100,
+                },
+                {
+                    id: 'buttonnum',
+                    type: 'number',
+                    label: 'Button Number',
+                    default: 1,
+                    min: 1,
+                    max: 100,
+                },
+                {
+                    id: 'action',
+                    type: 'dropdown',
+                    label: 'Action',
+                    choices: [
+                        { id: 'Go', label: 'Go'},
+                        { id: 'Pause', label: 'Pause'},
+                        { id: 'Release', label: 'Release'},
+                        { id: 'Select', label: 'Select'},
+                        { id: 'SnapGo', label: 'SnapGo'},
+                        { id: 'Toggle', label: 'Toggle'},
+                        { id: 'Back', label: 'Back'},
+                    ],
+                    default: 'Go',
+                },
+            ],
+            callback: async (event : CompanionActionEvent) => {
+                instance.log('debug', "playback_page_button page: " + event.options.pagenum + " button: " + event.options.buttonnum + " action: " + event.options.action);
+
+                // @ts-ignore
+                var address = "/Mx/playback/page" + event.options.pagenum + "/" + (event.options.buttonnum - 1) + "/" + event.options.action
+                instance.send(address, [{ type: 'i', value: 1 }])
+            },
+        },
     }
 
 }

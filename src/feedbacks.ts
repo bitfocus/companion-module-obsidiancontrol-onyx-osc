@@ -41,13 +41,9 @@ export function getFeedbacks(instance: OnyxOscInstance) : CompanionFeedbackDefin
                 // This callback will be called whenever companion wants to check if this feedback is 'active' and should affect the button style
 
                 var addressnum = instance.getPlaybackBaseAddressNum(<number>feedback.options.num) + parseInt(<string>feedback.options.button)
-                instance.log('debug', 'Address: ' + '/Mx/button/' + addressnum + '/led statusMap: ' + instance.statusMap.get('/Mx/button/' + addressnum + '/led'))
+                //instance.log('debug', 'Address: ' + '/Mx/button/' + addressnum + '/led statusMap: ' + instance.statusMap.get('/Mx/button/' + addressnum + '/led'))
 
-                if (instance.statusMap.get('/Mx/button/' + addressnum + '/led') == 1) {
-                    return true
-                } else {
-                    return false
-                }
+                return instance.statusMap.get('/Mx/button/' + addressnum + '/led') == 1;
             }
         },
         'generic_button_led' : {
@@ -69,15 +65,18 @@ export function getFeedbacks(instance: OnyxOscInstance) : CompanionFeedbackDefin
             }],
             callback: (feedback : CompanionFeedbackBooleanEvent) => {
                 // This callback will be called whenever companion wants to check if this feedback is 'active' and should affect the button style
+                const button = instance.buttons.getById(<string>feedback.options.button)
 
-                var feedbackAddress = instance.buttons.getBaseAddress(<string>feedback.options.button) + "/led"
-                instance.log('debug', 'Button: ' + <string>feedback.options.button + ' Address: ' + feedbackAddress + ' statusMap: ' + instance.statusMap.get(feedbackAddress))
+                if (button.hasLedFeedback) {
+                    var feedbackAddress = instance.buttons.getBaseAddress(<string>feedback.options.button) + "/led"
+                    //instance.log('debug', 'Button: ' + <string>feedback.options.button + ' Address: ' + feedbackAddress + ' statusMap: ' + instance.statusMap.get(feedbackAddress))
 
-                if (instance.statusMap.get(feedbackAddress) == 1) {
-                    return true
-                } else {
-                    return false
+                    return instance.statusMap.get(feedbackAddress) == 1;
+                } else if (button.hasText) {
+                    var feedbackAddress = instance.buttons.getBaseAddress(<string>feedback.options.button) + "/text/color"
+                    return instance.statusMap.get(feedbackAddress) == "green";
                 }
+                return false
             }
         }
     }

@@ -1,4 +1,10 @@
-import {InstanceBase, InstanceStatus, runEntrypoint, SomeCompanionConfigField} from "@companion-module/base";
+import {
+    CompanionVariableValues,
+    InstanceBase,
+    InstanceStatus,
+    runEntrypoint,
+    SomeCompanionConfigField
+} from "@companion-module/base";
 import {GetConfigFields, OnyxOscConfig} from "./config.js";
 import osc from "osc"
 import {getActions} from "./actions.js";
@@ -143,6 +149,34 @@ class OnyxOscInstance extends InstanceBase<OnyxOscConfig> {
                         'playback_20_name': oscMessage.args[0]
                     })
                     break;
+                case '/Mx/commandLine/0001/text':
+                    me.setVariableValues({
+                        'commandline_status': oscMessage.args[0]
+                    })
+                    break;
+                case '/Mx/commandLine/0002/text':
+                    me.setVariableValues({
+                        'commandline_command': oscMessage.args[0]
+                    })
+                    break;
+                case '/Mx/label/4401/text':
+                    me.setVariableValues({
+                        'playback_bank_number': oscMessage.args[0]
+                    })
+                    break;
+                case '/Mx/configuration/deviceSpace':
+                    me.setVariableValues({
+                        'device_space_id': oscMessage.args[0]
+                    })
+                    break;
+                default:
+                    // Update texts defined in buttons
+                    let varname = me.buttons.getVariableForAddress(oscMessage.address);
+                    if (varname != undefined) {
+                        let vals : CompanionVariableValues = {}
+                        vals[varname] = oscMessage.args[0]
+                        me.setVariableValues(vals)
+                    }
             }
         });
 
@@ -159,7 +193,7 @@ class OnyxOscInstance extends InstanceBase<OnyxOscConfig> {
         this.setActionDefinitions(actions)
 
         // export variables
-        const variables = getVariables()
+        const variables = getVariables(this)
         this.setVariableDefinitions(variables)
 
         // export feedbacks

@@ -1,7 +1,9 @@
 import {CompanionVariableDefinition} from "@companion-module/base";
+import OnyxOscInstance from "./index";
 
-export function getVariables(): CompanionVariableDefinition[] {
-    return [
+export function getVariables(instance: OnyxOscInstance): CompanionVariableDefinition[] {
+    var vars : CompanionVariableDefinition[] = []
+    vars.push(
         {
             variableId: 'playback_01_name',
             name: 'Main Playback 1 Name'
@@ -82,11 +84,27 @@ export function getVariables(): CompanionVariableDefinition[] {
             variableId: 'playback_20_name',
             name: 'Main Playback 20 Name'
         },
-        // TODO: Playback Bank 1-5 Name
-        // TODO: Playback Bank Number
-        // TODO: Command Line
-        // TODO: PF Group 1-5 Name
-        // TODO: Base Channel Group 1-5 Name
-        // TODO: Device Space ID
-    ]
+        {
+            variableId: 'device_space_id',
+            name: 'Device Space ID'
+        },
+        {
+            variableId: 'playback_bank_number',
+            name: 'Playback Bank Number'
+        },
+        {
+            variableId: 'commandline_status',
+            name: 'Command Line Status'
+        },
+        {
+            variableId: 'commandline_command',
+            name: 'Command Line Command'
+        }
+    )
+
+    vars.push(...instance.buttons.getVariableDefinitions())
+
+    instance.log('debug', JSON.stringify(vars))
+
+    return vars
 }
