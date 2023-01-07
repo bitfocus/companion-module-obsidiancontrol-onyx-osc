@@ -1,12 +1,12 @@
 {
-	"id": "obsidian-onyx-osc",
-	"name": "obsidian-onyx-osc",
+	"id": "obsidiancontrol-onyx-osc",
+	"name": "obsidiancontrol-onyx-osc",
 	"shortname": "onyx-osc",
 	"description": "Obsidian Control Systems ONYX via OSC",
 	"version": "0.0.0",
 	"license": "MIT",
-	"repository": "git+https://github.com/bitfocus/companion-module-your-module-name.git",
-	"bugs": "https://github.com/bitfocus/companion-module-your-module-name/issues",
+	"repository": "git+https://github.com/bitfocus/companion-module-obsidiancontrol-onyx-osc.git",
+	"bugs": "https://github.com/bitfocus/companion-module-obsidiancontrol-onyx-osc/issues",
 	"maintainers": [
 		{
 			"name": "Daniel Kleine-Albers",
