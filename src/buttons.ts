@@ -53,27 +53,27 @@ export class Buttons {
                 baseAddress: "/Mx/button/4413",
                 hasLedFeedback: true
             },
-            "PLAYBACK BANK 1": {
+            "Playback Bank 1": {
                 baseAddress: "/Mx/button/4421",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PLAYBACK BANK 2": {
+            "Playback Bank 2": {
                 baseAddress: "/Mx/button/4422",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PLAYBACK BANK 3": {
+            "Playback Bank 3": {
                 baseAddress: "/Mx/button/4423",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PLAYBACK BANK 4": {
+            "Playback Bank 4": {
                 baseAddress: "/Mx/button/4424",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PLAYBACK BANK 5": {
+            "Playback Bank 5": {
                 baseAddress: "/Mx/button/4425",
                 hasLedFeedback: false,
                 hasText: true
@@ -358,36 +358,36 @@ export class Buttons {
                 baseAddress: "/Mx/button/21A3",
                 hasLedFeedback: true
             },
-            "PF GROUP 1": {
+            "PF Group 1": {
                 baseAddress: "/Mx/button/5701",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PF GROUP 2": {
+            "PF Group 2": {
                 baseAddress: "/Mx/button/5702",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PF GROUP 3": {
+            "PF Group 3": {
                 baseAddress: "/Mx/button/5703",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PF GROUP 4": {
+            "PF Group 4": {
                 baseAddress: "/Mx/button/5704",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PF GROUP 5": {
+            "PF Group 5": {
                 baseAddress: "/Mx/button/5705",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "PF GROUP Scroll Up": {
+            "PF Group Scroll Up": {
                 baseAddress: "/Mx/scroll/5706/up",
                 hasLedFeedback: false
             },
-            "PF GROUP Scroll Down": {
+            "PF Group Scroll Down": {
                 baseAddress: "/Mx/scroll/5706/down",
                 hasLedFeedback: false
             },
@@ -415,85 +415,85 @@ export class Buttons {
                 baseAddress: "/Mx/button/6108",
                 hasLedFeedback: false
             },
-            "BASE CHANNEL GROUP 1": {
+            "Base Channel Group 1": {
                 baseAddress: "/Mx/button/6101",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "BASE CHANNEL GROUP 2": {
+            "Base Channel Group 2": {
                 baseAddress: "/Mx/button/6102",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "BASE CHANNEL GROUP 3": {
+            "Base Channel Group 3": {
                 baseAddress: "/Mx/button/6103",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "BASE CHANNEL GROUP 4": {
+            "Base Channel Group 4": {
                 baseAddress: "/Mx/button/6104",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "BASE CHANNEL GROUP 5": {
+            "Base Channel Group 5": {
                 baseAddress: "/Mx/button/6105",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "EFFECT CHANNEL GROUP 1": {
+            "Effect Channel Group 1": {
                 baseAddress: "/Mx/button/6201",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "EFFECT CHANNEL GROUP 2": {
+            "Effect Channel Group 2": {
                 baseAddress: "/Mx/button/6202",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "EFFECT CHANNEL GROUP 3": {
+            "Effect Channel Group 3": {
                 baseAddress: "/Mx/button/6203",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "EFFECT CHANNEL GROUP 4": {
+            "Effect Channel Group 4": {
                 baseAddress: "/Mx/button/6204",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "EFFECT CHANNEL GROUP 5": {
+            "Effect Channel Group 5": {
                 baseAddress: "/Mx/button/6205",
                 hasLedFeedback: false,
                 hasText: true
             },
-            "BASE CHANNEL 1": {
+            "Base Channel 1": {
                 baseAddress: "/Mx/button/6111",
                 hasLedFeedback: true
             },
-            "BASE CHANNEL 2": {
+            "Base Channel 2": {
                 baseAddress: "/Mx/button/6121",
                 hasLedFeedback: true
             },
-            "BASE CHANNEL 3": {
+            "Base Channel 3": {
                 baseAddress: "/Mx/button/6131",
                 hasLedFeedback: true
             },
-            "BASE CHANNEL 4": {
+            "Base Channel 4": {
                 baseAddress: "/Mx/button/6141",
                 hasLedFeedback: true
             },
-            "EFFECT CHANNEL 1": {
+            "Effect Channel 1": {
                 baseAddress: "/Mx/button/6211",
                 hasLedFeedback: true
             },
-            "EFFECT CHANNEL 2": {
+            "Effect Channel 2": {
                 baseAddress: "/Mx/button/6221",
                 hasLedFeedback: true
             },
-            "EFFECT CHANNEL 3": {
+            "Effect Channel 3": {
                 baseAddress: "/Mx/button/6231",
                 hasLedFeedback: true
             },
-            "EFFECT CHANNEL 4": {
+            "Effect Channel 4": {
                 baseAddress: "/Mx/button/6241",
                 hasLedFeedback: true
             },

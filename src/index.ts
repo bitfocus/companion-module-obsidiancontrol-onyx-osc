@@ -184,7 +184,9 @@ class OnyxOscInstance extends InstanceBase<OnyxOscConfig> {
             me.log('error', JSON.stringify(err));
         });
 
+        this.log('debug', "Opening UDP port")
         this.udpPort.open()
+        this.log('debug', "UDP port opened")
 
 
 
@@ -204,7 +206,21 @@ class OnyxOscInstance extends InstanceBase<OnyxOscConfig> {
         const presets = this.buttons.getPresetDefinitions()
         this.setPresetDefinitions(presets)
 
+        this.log('debug', "Export completed")
 
+        // set initial variable values
+        let variableValues : CompanionVariableValues = {}
+        variables.forEach(function (variable) {
+            let initialValue = variable.name
+            initialValue = initialValue.replace(" Name", "")
+
+            variableValues[variable.variableId] = initialValue
+        })
+        this.log('debug', JSON.stringify(variableValues));
+        this.setVariableValues(variableValues)
+
+
+        this.log('debug', "configUpdated complete")
         return Promise.resolve()
     }
 
