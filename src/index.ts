@@ -177,6 +177,20 @@ class OnyxOscInstance extends InstanceBase<OnyxOscConfig> {
                         vals[varname] = oscMessage.args[0]
                         me.setVariableValues(vals)
                     }
+
+                    // Update fader values
+                    if (oscMessage.address.startsWith("/Mx/fader/")) {
+                        for (var i = 1; i <= 20; i++) {
+                            let valueAddress = "/Mx/fader/" + (me.getPlaybackBaseAddressNum(i) + 3)
+                            if (oscMessage.address == valueAddress) {
+                                let varname = 'playback_' + String(i).padStart(2, '0') + '_level'
+                                let vals : CompanionVariableValues = {}
+                                vals[varname] = Math.round(oscMessage.args[0] / 255 * 100)
+                                me.setVariableValues(vals)
+                            }
+                        }
+
+                    }
             }
         });
 

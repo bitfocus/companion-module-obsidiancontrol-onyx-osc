@@ -18,17 +18,75 @@ export function getActions(instance: OnyxOscInstance): CompanionActionDefinition
                     id: 'level',
                     type: 'number',
                     label: 'Level',
-                    default: 255,
+                    default: 100,
                     min: 0,
-                    max: 255,
+                    max: 100,
                 },
             ],
             callback: async (event : CompanionActionEvent) => {
-                instance.log('debug', "playback_level " + event.options.num + " to " + event.options.level);
+                // @ts-ignore
+                let targetLevel = Math.round(event.options.level / 100.0 * 255.0)
+
+                instance.log('debug', "playback_level " + event.options.num + " to " + targetLevel);
 
                 if (event.options.num != null) {
                     var addressnum = instance.getPlaybackBaseAddressNum(<number>event.options.num) + 3
-                    instance.send('/Mx/fader/' + addressnum, [{ type: 'f', value: event.options.level }])
+                    instance.send('/Mx/fader/' + addressnum, [{ type: 'f', value: targetLevel }])
+                }
+            },
+        },
+        playback_level_relative: {
+            name: 'Main Playback Level Increment/Decrement',
+            options: [
+                {
+                    id: 'num',
+                    type: 'number',
+                    label: 'Playback Number',
+                    default: 1,
+                    min: 1,
+                    max: 20,
+                },
+                {
+                    id: 'direction',
+                    type: 'dropdown',
+                    label: 'Direction',
+                    choices: [
+                        { id: 'inc', label: 'Increase'},
+                        { id: 'dec', label: 'Decrease'},
+                    ],
+                    default: 'inc',
+                },
+                {
+                    id: 'amount',
+                    type: 'number',
+                    label: 'Amount',
+                    default: 5,
+                    min: 0,
+                    max: 100,
+                },
+            ],
+            callback: async (event : CompanionActionEvent) => {
+                instance.log('debug', "playback_level_relative " + event.options.num + " direction " + event.options.direction + " amount " + event.options.amount);
+
+                if (event.options.num != null) {
+                    let targetLevel : number = (instance.getVariableValue('playback_' + String(event.options.num).padStart(2, '0') + '_level') as number)
+
+                    if (targetLevel == undefined) {
+                        targetLevel = 0
+                    }
+
+                    if (event.options.direction == 'inc') {
+                        targetLevel += (event.options.amount as number)
+                        if (targetLevel > 100) targetLevel = 100
+                    } else {
+                        targetLevel -= (event.options.amount as number)
+                        if (targetLevel < 0) targetLevel = 0
+                    }
+
+                    targetLevel = Math.round(targetLevel / 100.0 * 255.0)
+
+                    var addressnum = instance.getPlaybackBaseAddressNum(<number>event.options.num) + 3
+                    instance.send('/Mx/fader/' + addressnum, [{ type: 'f', value: targetLevel }])
                 }
             },
         },

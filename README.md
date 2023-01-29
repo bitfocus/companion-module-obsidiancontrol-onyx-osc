@@ -6,7 +6,5 @@ See [HELP.md](./companion/HELP.md) and [LICENSE](./LICENSE)
 * Button Playbacks (Onyx provides no feedback for those)
 * Generic Buttons (SELECT, GO, ...)
 * Parameter Group / Effect Group selection (incl. feedback)
-* TODO: Encoders
-* TODO: Master Faders
 * Bank selection incl. feedback
 * Device Space ID selection incl. feedback
