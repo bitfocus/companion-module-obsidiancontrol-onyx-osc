@@ -19,11 +19,11 @@
 		"url": "git+https://github.com/bitfocus/companion-module-obsidiancontrol-onyx-osc.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.4.3",
+		"@companion-module/base": "~1.15.0",
 		"osc": "^2.4.3"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^2.8.0",
+		"@companion-module/tools": "^2.9.0",
 		"@types/node": "^18.11.9",
 		"eslint": "^8.57.1",
 		"husky": "^8.0.2",
@@ -42,6 +42,6 @@
 		]
 	},
 	"engines": {
-		"node": "^18.12"
+		"node": "^26.5"
 	}
 }
